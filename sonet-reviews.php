@@ -6,7 +6,7 @@ Author: Sonet Digital
 Author URI: http://www.sonetseo.com
 */
 
-#include 'metaboxes.php';
+include 'metaboxes.php';
 
 add_action( 'init', 'sonet_reviews_cpt' );
 
@@ -29,6 +29,8 @@ function sonet_reviews_cpt() {
         'title',
         'editor',
         'revisions'
-        ))
+        ),
+        'taxonomies'  => array( 'category' )
+        )
     );
 }
