@@ -26,7 +26,9 @@ function sonet_reviews_cpt() {
         'has_archive' => true,
         'rewrite' => array('slug' => 'reviews'),
         'supports' => array(
-        'title'
+        'title',
+        'editor',
+        'revisions'
         ))
     );
 }
