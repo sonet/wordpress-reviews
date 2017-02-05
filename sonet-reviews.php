@@ -13,8 +13,8 @@ include 'metaboxes.php';
 
 add_action('init', 'sonet_reviews_cpt');
 
-function sonet_reviews_cpt()
-{
+function sonet_reviews_cpt() {
+
     register_post_type('sonet_review',
         array(
           'labels' => array(
@@ -41,12 +41,9 @@ function sonet_reviews_cpt()
             'title',
             'editor',
             'revisions'
-          ),
-          //'taxonomies'  => array( 'source' )
+          )
         )
     );
-
-
 
     register_taxonomy('sonet_review_source', array('sonet_review'), array(
       'hierarchical' => true,
@@ -67,6 +64,7 @@ function sonet_reviews_cpt()
       'rewrite' => array( 'slug' => 'review-source' )
       )
     );
+
 }
 
 add_filter('post_updated_messages', 'review_updated_messages');
@@ -91,4 +89,33 @@ function review_updated_messages($messages)
     );
 
     return $messages;
+}
+
+/*
+
+*/
+
+add_action('restrict_manage_posts','restrict_reviews_by_source');
+function restrict_reviews_by_source() {
+    global $typenow;
+    global $wp_query;
+    if ($typenow=='sonet_review') {
+
+		$tax_slug = 'sonet_review_source';
+
+		// retrieve the taxonomy object
+		$tax_obj = get_taxonomy($tax_slug);
+		$tax_name = $tax_obj->labels->name;
+		// retrieve array of term objects per taxonomy
+		$terms = get_terms($tax_slug);
+
+		// output html for taxonomy dropdown filter
+		echo "<select name='$tax_slug' id='$tax_slug' class='postform'>";
+		echo "<option value=''>Show All $tax_name</option>";
+		foreach ($terms as $term) {
+			// output each select option line, check against the last $_GET to show the current option selected
+			echo '<option value='. $term->slug, $_GET[$tax_slug] == $term->slug ? ' selected="selected"' : '','>' . $term->name .' (' . $term->count .')</option>';
+		}
+		echo "</select>";
+    }
 }
