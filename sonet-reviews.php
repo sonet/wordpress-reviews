@@ -23,7 +23,7 @@ function sonet_reviews_cpt() {
             'all_items' => __( 'All Reviews' ),
             'parent_item' => __( 'Parent Review' ),
             'parent_item_colon' => __( 'Parent Review:' ),
-            'edit_item' => __( 'Edit Review' ), 
+            'edit_item' => __( 'Edit Review' ),
             'update_item' => __( 'Update Review' ),
             'add_new_item' => __( 'Add New Review' ),
             'new_item_name' => __( 'New Review Name' ),
@@ -40,8 +40,8 @@ function sonet_reviews_cpt() {
         'title',
         'editor',
         'revisions'
-        ),
-        'taxonomies'  => array( 'category' )
+      )//,
+        //'taxonomies'  => array( 'category' )
         )
     );
 }
