@@ -136,6 +136,14 @@ function review_shortcode($atts) {
 		'maxdes' => '',
 	), $atts));
 
+  // for some reason the post ID is not available here
+  $post = get_post();
+  $id = ! empty( $post ) ? $post->ID : false;
+
+  // the "Radio Buttons for Taxonomies" plaugin wraps the slug in quotes
+  // breaking the query
+  $src = str_replace('&#8221;', '', $src);
+
 	// stuff that loads when the shortcode is called goes here
 
 		if ( ! empty($id) ) {
