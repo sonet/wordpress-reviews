@@ -165,146 +165,142 @@ function review_shortcode($atts) {
 				'posts_per_page' => -10) );
 			}
 
+      $reviewShortcode .= '<ul id="reviews">';
 
-			global $wpdb; $srcname = $wpdb->get_var("SELECT name FROM $wpdb->terms WHERE slug = '$src'");
-			$countreviews='0';
-			$review_shortcode = '';
+//
+// 			global $wpdb; $srcname = $wpdb->get_var("SELECT name FROM $wpdb->terms WHERE slug = '$src'");
+// 			$countReviews='0';
+// 			$reviewShortcode = '';
+//
+// 			if ( !empty( $src ) && $hidetitle != 'yes' ) { $reviewShortcode .= '<div class="review-srcname">' . $srcname . '</div>'; }
+//
+//
+// 		$termId = $wpdb->get_var("SELECT term_id FROM $wpdb->terms WHERE slug = '$src'");
+//
+// 		$termDesc = $wpdb->get_var("SELECT description FROM $wpdb->term_taxonomy WHERE term_taxonomy_id = '$termId'");
+//
+// 			if ( !empty( $src ) ) { $reviewShortcode .= '<div class="reviewsrcdes">'.$termDesc.'</div>'; }
+//
+//
+// 			if ($view == 'list' && $featured == 'yes'){
+// 			$reviewShortcode .= '<table class="reviewtable" style="background: #eee;"><tbody>';
+// 			}
+//
+// 			if ($view == 'list' && $featured != 'yes'){
+// 			$reviewShortcode .= '<table class="reviewtable"><tbody>';
+// 			}
+//
+// 				if ($view != 'list' && $featured != 'yes'){
+// 			$reviewShortcode .= '<ul class="reviews">';
+// 			}
+//
+// 			if ($view != 'list' && $featured == 'yes'){
+// 			$reviewShortcode .= '<ul class="reviews" style="background: #eee;">';
+// 			}
+//
+// 			while($sonet_reviews->have_posts()): $sonet_reviews->the_post();
+// 			$countReviews++;
+//
+// 			$price=get_post_meta( get_the_ID(), '_sonet_review_price', true );
+//
+//
+//
+// 			if ($view == 'list'){
+// 				$theimage=wp_get_attachment_image_src( get_post_thumbnail_id(get_the_ID()) , 'review-image');
+//
+// 				$reviewShortcode .= '<tr><td align="center"><a href="' . get_permalink() . '"><img src="'.$theimage[0].'" alt="" /></a></td>';
+// 				$reviewShortcode .= '<td><div class="review-title"><a href="' . get_permalink() . '">'. get_the_title().'</a></div>';
+//
+//
+//
+//
+// 				if ($buttontext == NULL){
+// 				$reviewShortcode .= '<div class="review-excerpt"><p>'.get_the_excerpt().'</p>';
+// 				if($price != NULL){
+// 				$reviewShortcode .= '<p><b>Price $'.$price.'</b></p>';
+// 				}
+// 				$reviewShortcode .= '</div></td></tr>';
+// 				$reviewShortcode .= '<tr><td colspan="2"><div class="reviewmoretag"><a href="' . get_permalink() . '">View Review</a></div></td></tr>';
+//
+//
+// 	            }else{
+// 	           $reviewShortcode .= '<div class="review-excerpt"><p>'.get_the_excerpt().'</p>';
+// 	           	if($price != NULL){
+// 				$reviewShortcode .= '<p><b>Price $'.$price.'</b></p>';
+// 				}
+// 	           $reviewShortcode .= '</div></td></tr>';
+// 	           $reviewShortcode .= '<tr><td colspan="2"><div class="reviewmoretag"><a href="' . get_permalink() . '">'.$buttontext.'</a></div></td></tr>';
+// 	            }
+//
+//
+// 	$reviewShortcode .= '<tr><td colspan="2"><div class="spacer"></div></td></tr>';
+//
+// 	}else {
+//
+// 	$theimage=wp_get_attachment_image_src( get_post_thumbnail_id(get_the_ID()) , 'review-image2');
+//
+// 	$reviewShortcode .= '<li>';
+// 	$reviewShortcode .= '<a href="' . get_permalink() . '"><img src="'.$theimage[0].'" style="max-width:195px;" alt="" />';
+// 	$reviewShortcode .= '<h4>'. get_the_title().'</h4>';
+// 	if ($des != 'no'){
+// 	$paragraph = explode (' ', get_the_excerpt());
+//
+// 	if (is_numeric($maxdes)) {
+// 	$paragraph = array_slice ($paragraph, 0, $maxdes);
+// 	} else {
+// 	$paragraph = array_slice ($paragraph, 0, '20');
+// 	}
+//
+//
+//  	$paragraph=implode (' ', $paragraph);
+// 	$reviewShortcode .= '<p>' .$paragraph. '...</p>';
+// 	}
+//
+//
+//
+//
+//
+// 	if($price != NULL){
+// 	$reviewShortcode .= '<p><b>Price $'.$price.'</b></p>';
+// 	}
+//
+// 	$reviewShortcode .= '</a>';
+//
+//
+// 	if ($buttontext == NULL){
+// 		$reviewShortcode .= '<div class="reviewmoreholder"><div class="reviewmoretag"><a href="' . get_permalink() . '">View Review</a></div></div>';
+//     }else{
+//         $reviewShortcode .= '<div class="reviewmoreholder"><div class="reviewmoretag"><a href="' . get_permalink() . '">'.$buttontext.'</a></div></div>';
+//     }
+// 	$reviewShortcode .= '</li>';
+//
+//
+//
+//
+// 	}
+//
+//
+//
+// 			endwhile; // end reviews loop
+//
+//
+// 		if ($view == 'list'){
+// 	$reviewShortcode .= '</tbody></table>';
+// }
 
-			if ( !empty( $src ) && $hidetitle != 'yes' ) { $review_shortcode .= '<div class="review-srcname">' . $srcname . '</div>'; }
-
-
-		$thetermid = $wpdb->get_var("SELECT term_id FROM $wpdb->terms WHERE slug = '$src'");
-
-
-		$thetermdes = $wpdb->get_var("SELECT description FROM $wpdb->term_taxonomy WHERE term_taxonomy_id = '$thetermid'");
-
-
-			if ( !empty( $src ) ) { $review_shortcode .= '<div class="reviewsrcdes">'.$thetermdes.'</div>'; }
-
-
-			if ($view == 'list' && $featured == 'yes'){
-			$review_shortcode .= '<table class="reviewtable" style="background: #eee;"><tbody>';
-			}
-
-			if ($view == 'list' && $featured != 'yes'){
-			$review_shortcode .= '<table class="reviewtable"><tbody>';
-			}
-
-
-
-
-				if ($view != 'list' && $featured != 'yes'){
-			$review_shortcode .= '<ul class="reviews">';
-			}
-
-			if ($view != 'list' && $featured == 'yes'){
-			$review_shortcode .= '<ul class="reviews" style="background: #eee;">';
-			}
-
-
-
-
-			while($sonet_reviews->have_posts()): $sonet_reviews->the_post();
-			$countreviews++;
-
-			$price=get_post_meta( get_the_ID(), '_sonet_review_price', true );
-
-
-
-			if ($view == 'list'){
-				$theimage=wp_get_attachment_image_src( get_post_thumbnail_id(get_the_ID()) , 'review-image');
-
-				$review_shortcode .= '<tr><td align="center"><a href="' . get_permalink() . '"><img src="'.$theimage[0].'" alt="" /></a></td>';
-				$review_shortcode .= '<td><div class="review-title"><a href="' . get_permalink() . '">'. get_the_title().'</a></div>';
-
-
-
-
-				if ($buttontext == NULL){
-				$review_shortcode .= '<div class="review-excerpt"><p>'.get_the_excerpt().'</p>';
-				if($price != NULL){
-				$review_shortcode .= '<p><b>Price $'.$price.'</b></p>';
-				}
-				$review_shortcode .= '</div></td></tr>';
-				$review_shortcode .= '<tr><td colspan="2"><div class="reviewmoretag"><a href="' . get_permalink() . '">View Review</a></div></td></tr>';
-
-
-	            }else{
-	           $review_shortcode .= '<div class="review-excerpt"><p>'.get_the_excerpt().'</p>';
-	           	if($price != NULL){
-				$review_shortcode .= '<p><b>Price $'.$price.'</b></p>';
-				}
-	           $review_shortcode .= '</div></td></tr>';
-	           $review_shortcode .= '<tr><td colspan="2"><div class="reviewmoretag"><a href="' . get_permalink() . '">'.$buttontext.'</a></div></td></tr>';
-	            }
-
-
-	$review_shortcode .= '<tr><td colspan="2"><div class="spacer"></div></td></tr>';
-
-	}else {
-
-	$theimage=wp_get_attachment_image_src( get_post_thumbnail_id(get_the_ID()) , 'review-image2');
-
-	$review_shortcode .= '<li>';
-	$review_shortcode .= '<a href="' . get_permalink() . '"><img src="'.$theimage[0].'" style="max-width:195px;" alt="" />';
-	$review_shortcode .= '<h4>'. get_the_title().'</h4>';
-	if ($des != 'no'){
-	$paragraph = explode (' ', get_the_excerpt());
-
-	if (is_numeric($maxdes)) {
-	$paragraph = array_slice ($paragraph, 0, $maxdes);
-	} else {
-	$paragraph = array_slice ($paragraph, 0, '20');
-	}
-
-
- 	$paragraph=implode (' ', $paragraph);
-	$review_shortcode .= '<p>' .$paragraph. '...</p>';
-	}
-
-
-
-
-
-	if($price != NULL){
-	$review_shortcode .= '<p><b>Price $'.$price.'</b></p>';
-	}
-
-	$review_shortcode .= '</a>';
-
-
-	if ($buttontext == NULL){
-		$review_shortcode .= '<div class="reviewmoreholder"><div class="reviewmoretag"><a href="' . get_permalink() . '">View Review</a></div></div>';
-    }else{
-        $review_shortcode .= '<div class="reviewmoreholder"><div class="reviewmoretag"><a href="' . get_permalink() . '">'.$buttontext.'</a></div></div>';
-    }
-	$review_shortcode .= '</li>';
-
-
-
-
-	}
-
-
-
-			endwhile; // end slideshow loop
-
-
-		if ($view == 'list'){
-	$review_shortcode .= '</tbody></table>';
-}
+      $reviewShortcode .= '</ul>';
 
 
-			if ($view != 'list'){
-			$review_shortcode .= '</ul>';
-			}
+			// if ($view != 'list'){
+			//   $reviewShortcode .= '</ul>';
+			// }
 
-if ($countreviews == '0') {
-echo 'No reviews are currently posted for this source';
-}
+      if ($countReviews == '0') {
+        echo 'There are no reviews from this source.';
+      }
 
 			wp_reset_query();
 
-	$review_shortcode = do_shortcode( $review_shortcode );
-	return (__($review_shortcode));
+	$reviewShortcode = do_shortcode( $reviewShortcode );
+	return (__($reviewShortcode));
 } //end of the review_shortcode function
