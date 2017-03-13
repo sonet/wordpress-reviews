@@ -26,3 +26,7 @@
     background-color: #ff3c50;
     color: #fff;
 }
+
+.custom-pagination .page-numbers {
+    display: inline-block;
+}

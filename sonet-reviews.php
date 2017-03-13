@@ -382,7 +382,7 @@ function review_init() {
         wp_enqueue_script('jquery');
     }
 
-    wp_enqueue_style('products',  plugins_url('styles.css', __FILE__), false, $product_version, 'screen');
+    wp_enqueue_style('reviews',  plugins_url('styles.css', __FILE__), false, $review_version, 'screen');
 }
 
 add_action('init', 'review_init');
