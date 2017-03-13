@@ -152,8 +152,8 @@ function review_shortcode($atts) {
 
     // stuff that loads when the shortcode is called goes here
 
-    $paged = ( get_query_var('page') ) ? get_query_var('page') : 1;
-    //$paged = ( get_query_var('paged') ) ? get_query_var('paged') : 1;
+    //$paged = ( get_query_var('page') ) ? get_query_var('page') : 1;
+    $paged = ( get_query_var('paged') ) ? get_query_var('paged') : 1;
 
     if ( ! empty($id) ) {
         $sonet_reviews = new WP_Query(array(
