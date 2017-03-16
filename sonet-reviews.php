@@ -262,6 +262,22 @@ function review_shortcode($atts) {
 
                 $theimage = wp_get_attachment_image_src(get_post_thumbnail_id(get_the_ID()), 'review-image2');
 
+                $sources = get_terms( array(
+                    'taxonomy' => 'sonet_review_source',
+                    'hide_empty' => false,
+                ) );
+
+                $sources = wp_get_post_terms( get_the_ID(),'sonet_review_source',array(
+                    'hide_empty' => false
+                    )
+                );
+
+                echo '<pre> post_meta <b>L265</b>: ' . "\n";
+                var_dump( get_post_meta(get_the_ID(), 'sonet_review_date', true) );
+                var_dump($sources[0]->slug);
+                //var_dump($sources);
+                echo '</pre>';
+
                 $reviewShortcode .= '<li>';
                 $reviewShortcode .= '<a href="' . get_permalink() . '"><img src="' . $theimage[0] . '" style="max-width:195px;" alt="" />';
                 $reviewShortcode .= '<h4>' . get_the_title() . '</h4>';
