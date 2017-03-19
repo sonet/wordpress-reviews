@@ -145,9 +145,7 @@ function review_shortcode($atts) {
 //    var_dump('SNT_SRC: ' . $src);
 //    echo '</pre>';
 
-// the "Radio Buttons for Taxonomies" plugin wraps the slug in quotes
-
-    // breaking the query
+// the "Radio Buttons for Taxonomies" plugin wraps the slug in quotes is breaking the query
     $src = str_replace('&#8221;', '', $src);
 
     // stuff that loads when the shortcode is called goes here
@@ -482,7 +480,7 @@ function sonet_review_options_page() {
         <h2>Sonet Review Shortcodes</h2>
 
         <h3>Shortcode - [review]</h3>
-        <h4>Full Shortcode With All Options Enabled :<br/><br/> [review cat="category-slug" hidetitle="yes" featured="yes" view="list"  buttontext="your text here"  des="no" maxdes="50"] <h4>
+        <h4>Full Shortcode With All Options Enabled :<br/><br/> [review src="source-slug" hidetitle="yes" featured="yes" view="list"  buttontext="your text here"  des="no" maxdes="50"] <h4>
                 <h4>Below are the review shortcode options explained in detail
                     <h4><font color="#FF0000">***Note ALL shortcode options are optional:</font><h4>
                             <ul>
