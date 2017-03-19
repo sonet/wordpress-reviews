@@ -272,13 +272,19 @@ function review_shortcode($atts) {
                     )
                 );
 
-                echo '<pre> post_meta <b>L265</b>: ' . "\n";
-                var_dump( get_post_meta(get_the_ID(), 'sonet_review_date', true) );
-                var_dump($sources[0]->slug);
-                //var_dump($sources);
-                echo '</pre>';
+//                echo '<pre> post_meta <b>L275</b>: ' . "\n";
+//                var_dump( get_post_meta(get_the_ID(), 'sonet_review_date', true) );
+//                var_dump($sources[0]->slug);
+//                var_dump(get_the_title());
+//                //var_dump($sources);
+//                echo '</pre>';
 
-                $reviewShortcode .= '<li>';
+                if ($sources[0]->slug != '') {
+                    $reviewShortcode .= '<li class="'.$sources[0]->slug.'-review-src">';
+                } else {
+                    $reviewShortcode .= '<li class="no-review-src">';
+                }
+
                 $reviewShortcode .= '<a href="' . get_permalink() . '"><img src="' . $theimage[0] . '" style="max-width:195px;" alt="" />';
                 $reviewShortcode .= '<h4>' . get_the_title() . '</h4>';
                 if ($des != 'no') {
