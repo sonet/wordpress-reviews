@@ -30,3 +30,12 @@
 .custom-pagination .page-numbers {
     display: inline-block;
 }
+/* ============================================================
+  REVIEWS LIST
+============================================================ */
+
+.reviews .houzz-review-src {
+    background: #FFF url("images/houzz-logo-icon.svg")  no-repeat left 2rem;
+    background-size: 90px 90px;
+    padding-left: 7rem;
+}

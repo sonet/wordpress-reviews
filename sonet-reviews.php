@@ -1,10 +1,10 @@
 <?php
 /*
  * Plugin Name: Sonet Reviews
- * Description: Reviews plugin using a CPT
+ * Description: Reviews plugin providing a CPT
  * Author: Sonet SEO Company
  * Author URI: http://www.sonetseo.com
- * Plugin URI: http://www.sonetseo.com/wordpress
+ * @package Sonet Reviews
  * Version: 0.1
  *
 */
@@ -13,6 +13,9 @@ include 'metaboxes.php';
 
 add_action('init', 'sonet_reviews_cpt');
 
+/**
+ * Sonet Reviews Custom Post Type
+ */
 function sonet_reviews_cpt() {
 
     register_post_type('sonet_review',
@@ -69,6 +72,10 @@ function sonet_reviews_cpt() {
 
 add_filter('post_updated_messages', 'review_updated_messages');
 
+/**
+ * @param $messages
+ * @return mixed
+ */
 function review_updated_messages($messages)
 {
     $messages['grid_reviews'] = array(
@@ -91,10 +98,11 @@ function review_updated_messages($messages)
     return $messages;
 }
 
-/*
-    Admin filter by source
-*/
 add_action('restrict_manage_posts','restrict_reviews_by_source');
+
+/**
+ * Admin filter by source
+ */
 function restrict_reviews_by_source() {
     global $typenow;
     global $wp_query;
@@ -119,11 +127,15 @@ function restrict_reviews_by_source() {
     }
 }
 
-/*
-    Shortcode
-*/
+
 add_shortcode('review', 'review_shortcode');
-// define the shortcode function
+
+/**
+ * The shortcode
+ *
+ * @param $atts
+ * @return string|void
+ */
 function review_shortcode($atts) {
     extract(shortcode_atts(array(
         'src'	=> '',
@@ -178,7 +190,7 @@ function review_shortcode($atts) {
     // var_dump( $GLOBALS['wp_query']->request );
     // the above here is just getting the page itself
 
-    $reviewShortcode .= '<ul id="reviews">';
+    $reviewShortcode = '<ul id="reviews">';
 
     global $wpdb; $srcname = $wpdb->get_var("SELECT name FROM $wpdb->terms WHERE slug = '$src'");
     $countReviews='0';
@@ -222,6 +234,7 @@ function review_shortcode($atts) {
     }
 
     if ( $sonet_reviews->have_posts() ) {
+
         while ($sonet_reviews->have_posts()) : $sonet_reviews->the_post();
 
             $countReviews++;
@@ -326,6 +339,8 @@ function review_shortcode($atts) {
 //    var_dump( 'POST COUNT: '  . $countReviews);
 //    echo '</pre>';
 
+    error_log('TEST L330');
+
     // Pagination
     // http://callmenick.com/post/custom-wordpress-loop-with-pagination
     // check if the max number of pages is greater than 1
@@ -365,6 +380,7 @@ function review_shortcode($atts) {
 } //end of the review_shortcode function
 
 add_filter('manage_edit-sonet_reviews_columns', 'review_columns');
+
 function review_columns($columns) {
     $columns = array(
         'cb' => '<input type="checkbox" />',
@@ -376,6 +392,7 @@ function review_columns($columns) {
 }
 
 add_action('manage_posts_custom_column',  'review_show_columns');
+
 function review_show_columns($name) {
     global $post;
     switch ($name) {
@@ -402,11 +419,10 @@ function review_init() {
         wp_enqueue_script('jquery');
     }
 
-    wp_enqueue_style('reviews',  plugins_url('styles.css', __FILE__), false, $review_version, 'screen');
+    wp_enqueue_style('reviews',  plugins_url('styles.css?v=04', __FILE__), false, $review_version, 'screen');
 }
 
 add_action('init', 'review_init');
-
 
 add_action('admin_menu', 'add_sonet_review_option_page');
 
@@ -416,6 +432,11 @@ function add_sonet_review_option_page() {
 
 }
 
+/**
+ * @param string $numpages
+ * @param string $pagerange
+ * @param string $paged
+ */
 function custom_pagination($numpages = '', $pagerange = '', $paged='') {
 
     if (empty($pagerange)) {
@@ -471,31 +492,63 @@ function custom_pagination($numpages = '', $pagerange = '', $paged='') {
         echo $paginate_links;
         echo "</nav>";
     }
-
+    error_log('TEST L477');
 }
 
+/**
+ * Admin Options Page
+ */
 function sonet_review_options_page() {
+
     ?>
+
     <div class="wrap" style="width:500px">
         <h2>Sonet Review Shortcodes</h2>
-
         <h3>Shortcode - [review]</h3>
         <h4>Full Shortcode With All Options Enabled :<br/><br/> [review src="source-slug" hidetitle="yes" featured="yes" view="list"  buttontext="your text here"  des="no" maxdes="50"] <h4>
-                <h4>Below are the review shortcode options explained in detail
-                    <h4><font color="#FF0000">***Note ALL shortcode options are optional:</font><h4>
-                            <ul>
-                                <li><hr><h3>cat</h3> Used to display only produces in a certain category. If not set ALL reviews from any category will be shown.<br/><br/><b>Usage :</b> cat="category-slug"<br/><br/></li>
-                                <li><hr><h3>id</h3> Used  to display a single review. <br/><b>* Note: </b>the cat & the id attributes are mutually exclusive. Don't use both in the same shortcode.
-                                    <br/><br/><b>Usage :</b> id="1234" - where 1234 is the post ID.<br/><br/></li>
-                                <li><hr><h3>hidetitle</h3> Used in conjunction with the "cat" shortcode to hide the category title incase you would like to use something else instead of the category name.<br/><br/><b>Usage :</b> hidetitle="yes"<br/><br/></li>
-                                <li><hr><h3>featured</h3> Will set the background of the container to a default light grey.<br/><br/><b>Usage :</b> featured="yes"<br/><br/></li>
-                                <li><hr><h3>view</h3> The default view is a grid view, if you would prefer to use "list" view set this
-                                    attribute to equal list <br/><br/><b>Usage :</b> view="list"<br/><br/></li>
-                                <li><hr><h3>buttontext</h3>The default button text is "View Review" if you would like to change the text use this attribute <br/><br/><b>Usage :</b> buttontext="your text here"<br/><br/></li>
-                                <li><hr><h3>des</h3> Used to disable the review excerpt in the default grid view. <br/><br/><b>Usage :</b> des="no"<br/><br/></li>
-                                <li><hr><h3>maxdes</h3>  Used to set the number of words used in the
-                                    excerpt in the default grid view. (default - 20) must be a number.<br/><br/><b>Usage :</b> maxdes="50"<br/><br/><hr></li>
-                            </ul>
-
+        <h4>Below are the review shortcode options explained in detail
+        <h4><font color="#FF0000">***Note ALL shortcode options are optional:</font><h4>
+            <ul>
+                <li><hr><h3>cat</h3> Used to display only produces in a certain category. If not set ALL reviews from any category will be shown.<br/><br/><b>Usage :</b> cat="category-slug"<br/><br/></li>
+                <li><hr><h3>id</h3> Used  to display a single review. <br/><b>* Note: </b>the cat & the id attributes are mutually exclusive. Don't use both in the same shortcode.
+                    <br/><br/><b>Usage :</b> id="1234" - where 1234 is the post ID.<br/><br/></li>
+                <li><hr><h3>hidetitle</h3> Used in conjunction with the "cat" shortcode to hide the category title incase you would like to use something else instead of the category name.<br/><br/><b>Usage :</b> hidetitle="yes"<br/><br/></li>
+                <li><hr><h3>featured</h3> Will set the background of the container to a default light grey.<br/><br/><b>Usage :</b> featured="yes"<br/><br/></li>
+                <li><hr><h3>view</h3> The default view is a grid view, if you would prefer to use "list" view set this
+                    attribute to equal list <br/><br/><b>Usage :</b> view="list"<br/><br/></li>
+                <li><hr><h3>buttontext</h3>The default button text is "View Review" if you would like to change the text use this attribute <br/><br/><b>Usage :</b> buttontext="your text here"<br/><br/></li>
+                <li><hr><h3>des</h3> Used to disable the review excerpt in the default grid view. <br/><br/><b>Usage :</b> des="no"<br/><br/></li>
+                <li><hr><h3>maxdes</h3>  Used to set the number of words used in the
+                    excerpt in the default grid view. (default - 20) must be a number.<br/><br/><b>Usage :</b> maxdes="50"<br/><br/><hr></li>
+            </ul>
     </div>
-<?php } ?>
+
+<?php }
+
+add_filter('single_template', 'sonet_review_template');
+
+/**
+ * Filter the review_template using the custom review template
+ *
+ * @param $review
+ * @return string
+ */
+function sonet_review_template($single) {
+
+    global $wp_query, $post;
+
+     /* check for sonet single review template by post type */
+    if ($post->post_type == "sonet_review"){
+
+        $plugin_path = plugin_dir_path( __FILE__ );
+
+        if( file_exists($plugin_path . '/single-sonet-review.php') )
+            return $plugin_path . '/single-sonet-review.php';
+    }
+
+    return $single;
+
+    // Reference: http://wordpress.stackexchange.com/questions/17385/custom-post-type-templates-from-plugin-folder
+}
+
+?>
