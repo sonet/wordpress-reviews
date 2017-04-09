@@ -278,6 +278,8 @@ function review_shortcode($atts) {
                     'hide_empty' => false,
                 ) );
 
+                $meta = get_post_meta( get_the_ID() );
+
                 $sources = wp_get_post_terms( get_the_ID(),'sonet_review_source',array(
                     'hide_empty' => false
                     )
@@ -298,6 +300,24 @@ function review_shortcode($atts) {
 
                 $reviewShortcode .= '<a href="' . get_permalink() . '"><img src="' . $theimage[0] . '" style="max-width:195px;" alt="" />';
                 $reviewShortcode .= '<h4>' . get_the_title() . '</h4>';
+                $reviewShortcode .= '<p><strong>' . $meta['sonet_review_location'][0] . '</strong></p>';
+
+                // Stars Rating SVG
+                if (isset($meta['sonet_review_rating'][0])) {
+                    $reviewShortcode .= '<p class="sonet-star-rating">
+                            <svg id="sonet-star-rating" data-name="Star Rating" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 247.16 44.17">
+                                <defs>
+                                    <style>.sr_star{fill:#000;fill-rule:evenodd;/*stroke-width:1;stroke:rgb(0,0,0)*/}</style>
+                                </defs>
+                                <title>stars-rating</title>';
+                    for ($x = 1; $x <= $meta['sonet_review_rating'][0]; $x++) {
+                        $reviewShortcode .= "                                <path class=\"sr_star\"
+                                      d=\"M" . ($x * 50 + 343) . ",2240.16l-14.8-7.63-14.34,7.63,2.8-16.23-11.8-11.06,16.54-2.4,7-14.48,7.43,14.76,16.16,2.12-12,11.51Z\"
+                                      transform=\"translate(-304.84 -2195.99)\"/>";
+                    }
+                    $reviewShortcode .= '</svg></p>';
+                }
+
                 if ($des != 'no') {
                     $paragraph = explode(' ', get_the_excerpt());
 
