@@ -1,4 +1,5 @@
 Sonet Reviews Wordpress Plugin
 
 ToDo:
+* Add logo upload to the review source (instead of using CSS background images)
 * Implement the Star Rating SVG Plugin  http://nashio.github.io/star-rating-svg/demo/
