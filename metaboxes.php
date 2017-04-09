@@ -15,7 +15,7 @@ add_action( 'add_meta_boxes', 'sonet_register_review_box' );
 function sonet_register_review_box() {
     add_meta_box(
       'sonet_review_box',
-      __( 'Reviews', 'sonet_textdomain' ),
+      __( 'Review', 'sonet_textdomain' ),
       'sonet_review_box_content',
       'sonet_review',
       'normal',
@@ -56,6 +56,12 @@ function sonet_review_box_content( $post ) {
             echo "<option value=\"$rating\"" . $select . ">$rating</option>";
         }
         echo '</select><br>';
+        // Review URL
+        echo '<div class="reviewfieldholder">URL: </div><input type="text" '
+            . 'id="sonet_review_url" name="sonet_review_url" '
+            . 'placeholder="https://www" class="admininputfield"value="'
+            . get_post_meta($post->ID, "sonet_review_url", true)
+            . '"> <br/>';
 }
 
 add_action( 'save_post', 'sonet_review_meta_save' );
@@ -85,5 +91,6 @@ function sonet_review_meta_save( $post_id ) {
     update_post_meta( $post_id, 'sonet_review_location', $_POST['sonet_review_location'] );
     update_post_meta( $post_id, 'sonet_review_date', $_POST['sonet_review_date'] );
     update_post_meta( $post_id, 'sonet_review_rating', $_POST['sonet_review_rating'] );
+    update_post_meta( $post_id, 'sonet_review_url', $_POST['sonet_review_url'] );
 
 }
