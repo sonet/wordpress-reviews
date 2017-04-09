@@ -312,7 +312,7 @@ function review_shortcode($atts) {
                                 <title>stars-rating</title>';
                     for ($x = 1; $x <= $meta['sonet_review_rating'][0]; $x++) {
                         $reviewShortcode .= "                                <path class=\"sr_star\"
-                                      d=\"M" . ($x * 50 + 343) . ",2240.16l-14.8-7.63-14.34,7.63,2.8-16.23-11.8-11.06,16.54-2.4,7-14.48,7.43,14.76,16.16,2.12-12,11.51Z\"
+                                      d=\"M" . ($x * 50 + 243) . ",2240.16l-14.8-7.63-14.34,7.63,2.8-16.23-11.8-11.06,16.54-2.4,7-14.48,7.43,14.76,16.16,2.12-12,11.51Z\"
                                       transform=\"translate(-304.84 -2195.99)\"/>";
                     }
                     $reviewShortcode .= '</svg></p>';
