@@ -247,7 +247,6 @@ function review_shortcode($atts) {
                 $reviewShortcode .= '<tr><td align="center"><a href="' . get_permalink() . '"><img src="' . $theimage[0] . '" alt="" /></a></td>';
                 $reviewShortcode .= '<td><div class="review-title"><a href="' . get_permalink() . '">' . get_the_title() . '</a></div>';
 
-
                 if ($buttontext == NULL) {
                     $reviewShortcode .= '<div class="review-excerpt"><p>' . get_the_excerpt() . '</p>';
                     if ($price != NULL) {
@@ -298,8 +297,8 @@ function review_shortcode($atts) {
                     $reviewShortcode .= '<li class="no-review-src">';
                 }
 
-                $reviewShortcode .= '<a href="' . get_permalink() . '"><img src="' . $theimage[0] . '" style="max-width:195px;" alt="" />';
-                $reviewShortcode .= '<h4>' . get_the_title() . '</h4>';
+                $reviewShortcode .= '<a class="sonet-review-title" href="' . get_permalink() . '"><img src="' . $theimage[0] . '" style="max-width:195px;" alt="" />';
+                $reviewShortcode .= '<h4>' . get_the_title() . '</h4></a>';
                 $reviewShortcode .= '<p><strong>' . $meta['sonet_review_location'][0] . '</strong></p>';
 
                 // Stars Rating SVG

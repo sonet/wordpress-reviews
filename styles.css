@@ -1,6 +1,45 @@
 /* ============================================================
-  CUSTOM PAGINATION
+  REVIEW CONTENT
 ============================================================ */
+.reviews, .content .reviews {
+    margin: 0 0 2rem;
+}
+.sonet-review-title {
+    text-decoration: none;
+}
+.sonet-review-title h4 {
+    font-weight: 600;
+}
+.sonet-review-content {
+    margin-bottom: 1rem;
+}
+.sonet-review-left {
+    width: 25%;
+    float: left;
+}
+.sonet-review-left p {
+    margin-bottom: .1rem;
+}
+.sonet-review-right {
+    width: 75%;
+    float: left;
+    margin-bottom: 1.5rem;
+}
+@media screen and (max-width: 768px) {
+    .sonet-review-left {
+        width: 100%;
+    }
+
+    .sonet-review-right {
+        width: 100%;
+    }
+}
+    /* ============================================================
+      CUSTOM PAGINATION
+    ============================================================ */
+.custom-pagination {
+    margin-bottom: 3rem;
+}
 .custom-pagination span,
 .custom-pagination a {
     display: inline-block;
@@ -12,8 +51,8 @@
     padding: .4rem 1rem;
 }
 .custom-pagination a:hover {
-    background-color: #FFF;
-    color: #fff;
+    background-color: #FAFAFA;
+    color: #000;
 }
 .custom-pagination span.page-num {
     margin-right: 10px;
@@ -34,17 +73,21 @@
 /* ============================================================
   REVIEWS LIST
 ============================================================ */
-
 .reviews li {
-    padding-left: 7rem;
+    padding: .5rem 2rem .5rem 7rem;
     list-style: none;
+    margin-bottom: 1rem;
 }
-
+.reviews li:nth-child(odd) {
+    background-color: #EEE;
+}
 .reviews li.houzz-review-src {
-    background: #FFF url("images/houzz-logo-icon.svg")  no-repeat left 2rem;
+    background: transparent url("images/houzz-logo-icon.svg")  no-repeat .5rem 2rem;
     background-size: 90px 90px;
 }
-
+/*.reviews li.houzz-review-src:nth-child(odd) {*/
+    /*background-color: #EEE;*/
+/*}*/
 /* ============================================================
   STARS
 ============================================================ */

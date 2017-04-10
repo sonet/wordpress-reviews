@@ -40,11 +40,7 @@ get_header(); ?>
 
                 ?>
 
-                    <div class="review-left">
-
-                        <p><?=$meta['sonet_review_name'][0]?></p>
-                        <p><?=$meta['sonet_review_date'][0]?></p>
-                        <p><strong><?=$meta['sonet_review_location'][0]?></strong></p>
+                    <div class="sonet-review-left">
 
                         <div class="sonet-star-rating">
                             <svg id="sonet-star-rating" data-name="Star Rating" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 247.16 44.17">
@@ -62,27 +58,34 @@ get_header(); ?>
                             </svg>
                         </div>
 
+                        <p><strong><?=$meta['sonet_review_location'][0]?></strong></p>
+                        <p><?=$meta['sonet_review_date'][0]?></p>
+                        <p><?=$meta['sonet_review_name'][0]?></p>
+
                         <p><a href="<?=$meta['sonet_review_url'][0]?>"><img src="<?=plugin_dir_url( __FILE__ )?>images/houzz-logo-icon.svg" alt="houzz" hright="200" width="200"></a></p>
 
                     </div>
 
-                    <div class="review-right expandable">
-                        <?=get_the_content();?>
+                    <div class="sonet-review-right">
+                        <?php
+                        echo '<div class="sonet-review-content">' . get_the_content() . '</div>';
+
+                        // If comments are open or we have at least one comment, load up the comment template.
+                        if ( comments_open() || get_comments_number() ) :
+                            comments_template();
+                        endif;
+
+                        the_post_navigation( array(
+                            'prev_text' => '<span class="screen-reader-text">' . __( 'Previous Post', 'sonet_reviews' ) . '</span> <span aria-hidden="true" class="nav-subtitle">' . __( 'Previous', 'sonet_reviews' ) . '</span> <span class="nav-title"> <span class="nav-title-icon-wrapper">&larr;</span> %title</span>',
+                            'next_text' => '<span class="screen-reader-text">' . __( 'Next Post', 'sonet_reviews' ) . '</span> <span aria-hidden="true" class="nav-subtitle">' . __( 'Next', 'sonet_reviews' ) . '</span> <span class="nav-title">%title <span class="nav-title-icon-wrapper">&rarr;</span></span>',
+                        ) );
+
+                        ?>
                     </div>
 
                 </div>
 
                 <?php
-
-                    // If comments are open or we have at least one comment, load up the comment template.
-                    if ( comments_open() || get_comments_number() ) :
-                        comments_template();
-                    endif;
-
-                    the_post_navigation( array(
-                        'prev_text' => '<span class="screen-reader-text">' . __( 'Previous Post', 'sonet_reviews' ) . '</span> <span aria-hidden="true" class="nav-subtitle">' . __( 'Previous', 'sonet_reviews' ) . '</span> <span class="nav-title"> <span class="nav-title-icon-wrapper">&larr;</span> %title</span>',
-                        'next_text' => '<span class="screen-reader-text">' . __( 'Next Post', 'sonet_reviews' ) . '</span> <span aria-hidden="true" class="nav-subtitle">' . __( 'Next', 'sonet_reviews' ) . '</span> <span class="nav-title">%title <span class="nav-title-icon-wrapper">&rarr;</span></span>',
-                    ) );
 
                 endwhile; // End of the loop.
                 ?>
